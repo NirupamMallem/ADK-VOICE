@@ -272,9 +272,8 @@ function stopAudio() {
 // (due to the gesture requirement for the Web Audio API)
 startAudioButton.addEventListener("click", () => {
   startAudioButton.disabled = true;
-  startAudioButton.textContent = "Voice Enabled";
   startAudioButton.style.display = "none";
-  stopAudioButton.style.display = "inline-block";
+  stopAudioButton.style.display = "inline-flex";
   recordingContainer.style.display = "flex";
   startAudio();
   is_audio = true;
@@ -289,9 +288,8 @@ startAudioButton.addEventListener("click", () => {
 stopAudioButton.addEventListener("click", () => {
   stopAudio();
   stopAudioButton.style.display = "none";
-  startAudioButton.style.display = "inline-block";
+  startAudioButton.style.display = "inline-flex";
   startAudioButton.disabled = false;
-  startAudioButton.textContent = "Enable Voice";
   recordingContainer.style.display = "none";
 
   // Remove audio styling class

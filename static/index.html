@@ -302,6 +302,23 @@
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-5px); }
       }
+
+      /* icon-style for audio buttons (keeps existing JS logic intact) */
+      .icon-button {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      }
+      .icon-button svg { width: 20px; height: 20px; display: block; }
+      /* apply base colors but keep IDs so JS still finds these elements */
+      #startAudioButton.icon-button { background-color: var(--secondary-color); color: #fff; border: none; }
+      #stopAudioButton.icon-button  { background-color: var(--accent-color); color: #fff; border: none; display: none; }
     </style>
   </head>
 
@@ -323,20 +340,32 @@
       <form id="messageForm">
         <input type="text" id="message" name="message" placeholder="Type your message here..." autocomplete="off" />
         <button type="submit" id="sendButton" disabled>Send</button>
-        <button type="button" id="startAudioButton">Enable Voice</button>
-        <button type="button" id="stopAudioButton">Stop Voice</button>
+        <!-- start (enable) audio: same id so existing JS works -->
+        <button type="button" id="startAudioButton" class="icon-button" aria-label="Enable voice" title="Enable voice">
+          <!-- microphone - on svg (white fill to match button) -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" aria-hidden="true">
+            <path d="M12,15.75A4.756,4.756,0,0,0,16.75,11V7a4.75,4.75,0,0,0-9.5,0v4A4.756,4.756,0,0,0,12,15.75ZM8.75,7a3.25,3.25,0,0,1,6.5,0v4a3.25,3.25,0,0,1-6.5,0Zm4,11.712V20.25H16a.75.75,0,0,1,0,1.5H8a.75.75,0,0,1,0-1.5h3.25V18.712A7.76,7.76,0,0,1,4.25,11a.75.75,0,0,1,1.5,0,6.25,6.25,0,0,0,12.5,0,.75.75,0,0,1,1.5,0A7.76,7.76,0,0,1,12.75,18.712Z"/>
+          </svg>
+        </button>
+        <!-- stop audio: same id so existing JS works; initially hidden -->
+        <button type="button" id="stopAudioButton" class="icon-button" aria-label="Stop voice" title="Stop voice" style="display:none;">
+          <!-- microphone - off svg (white fill to match button) -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" aria-hidden="true">
+            <path d="M12,15.75A4.756,4.756,0,0,0,16.75,11V8.311L20.53,4.53a.75.75,0,1,0-1.06-1.06l-16,16a.75.75,0,1,0,1.06,1.06l3.121-3.12a7.723,7.723,0,0,0,3.6,1.3v1.54H8a.75.75,0,0,0,0,1.5h8a.75.75,0,0,0,0-1.5H12.75V18.712a7.76,7.76,0,0,0,7-7.712.75.75,0,0,0-1.5,0,6.223,6.223,0,0,1-9.5,5.315l1.1-1.1A4.7,4.7,0,0,0,12,15.75ZM15.25,11A3.254,3.254,0,0,1,12,14.25a3.2,3.2,0,0,1-1.018-.171L15.25,9.811ZM7.366,12.052A5.142,5.142,0,0,1,7.25,11V7A4.745,4.745,0,0,1,15.9,4.293a.75.75,0,1,1-1.233.854A3.245,3.245,0,0,0,8.75,7v4a3.738,3.738,0,0,0,.084.748.749.749,0,0,1-.582.886.723.723,0,0,1-.153.016A.75.75,0,0,1,7.366,12.052ZM5.115,14.566A7.743,7.743,0,0,1,4.25,11a.75.75,0,0,1,1.5,0,6.243,6.243,0,0,0,.7,2.874.749.749,0,0,1-.319,1.011.74.74,0,0,1-.346.085A.748.748,0,0,1,5.115,14.566Z"/>
+          </svg>
+        </button>
       </form>
-    </div>
-    
-    <div class="status-indicator">
-      <div class="status-item">
-        <div id="status-dot" class="status-dot"></div>
-        <span id="connection-status">Connecting...</span>
-      </div>
-      <div class="status-item" id="recording-container" style="display: none;">
-        <div class="status-dot recording" style="animation: pulse-recording 1.5s infinite;"></div>
-        <span id="recording-status">Recording</span>
-      </div>
-    </div>
-  </body>
-</html>
+     </div>
+     
+     <div class="status-indicator">
+       <div class="status-item">
+         <div id="status-dot" class="status-dot"></div>
+         <span id="connection-status">Connecting...</span>
+       </div>
+       <div class="status-item" id="recording-container" style="display: none;">
+         <div class="status-dot recording" style="animation: pulse-recording 1.5s infinite;"></div>
+         <span id="recording-status">Recording</span>
+       </div>
+     </div>
+   </body>
+ </html>
